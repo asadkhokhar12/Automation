@@ -17,30 +17,30 @@ const WEBHOOK_URL = process.env.WEBHOOK_URL;
 const ORTTO_API_KEY = process.env.ORTTO_API_KEY;
 
 // Function to create Thinkific Webhooks
-// const createWebhook = async (topic) => {
-//   try {
-//     const response = await axios.post(
-//       `https://api.thinkific.com/api/v2/webhooks`,
-//       {
-//         topic,
-//         target_url: WEBHOOK_URL,
-//         secret: WEBHOOK_SECRET,
-//       },
-//       {
-//         headers: {
-//           Authorization: `Bearer ${THINKIFIC_API_KEY}`,
-//           "Content-Type": "application/json",
-//         },
-//       }
-//     );
-//     console.log(`${topic} Webhook Created:`, response.data);
-//   } catch (error) {
-//     console.error(
-//       `Error creating ${topic} webhook:`,
-//       error.response?.data || error.message
-//     );
-//   }
-// };
+const createWebhook = async (topic) => {
+  try {
+    const response = await axios.post(
+      `https://api.thinkific.com/api/v2/webhooks`,
+      {
+        topic,
+        target_url: WEBHOOK_URL,
+        // secret: WEBHOOK_SECRET,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${THINKIFIC_API_KEY}`,
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    console.log(`${topic} Webhook Created:`, response.data);
+  } catch (error) {
+    console.error(
+      `Error creating ${topic} webhook:`,
+      error.response?.data || error.message
+    );
+  }
+};
 
 // createWebhook("user.signin");
 // createWebhook("enrollment.created");
@@ -99,10 +99,10 @@ const updateOrttoUser = async (userData) => {
             "str::email": userData.email,
             "str::first": userData.first_name,
             "str::last": userData.last_name,
-          },
-          location: {
-            source_ip: userData.ip_address || "Unknown",
-          },
+          }
+          // location: {
+          //   source_ip: userData.ip_address || "Unknown",
+          // },
         },
       ],
       async: true,
@@ -128,7 +128,7 @@ const updateOrttoUser = async (userData) => {
       error.response?.data || error.message
     );
   }
-};
+}
 
 // Function to Update Enrollment in Ortto
 // const updateOrttoEnrollment = async (enrollmentData) => {
