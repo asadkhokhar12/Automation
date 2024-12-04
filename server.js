@@ -1,6 +1,5 @@
 import express from "express";
 import bodyParser from "body-parser";
-import { createHmac } from "crypto";
 import axios from "axios";
 import dotenv from "dotenv";
 
@@ -12,18 +11,30 @@ app.use(bodyParser.json());
 // Environment Variables
 const THINKIFIC_API_KEY = process.env.THINKIFIC_API_KEY;
 const THINKIFIC_SUBDOMAIN = process.env.THINKIFIC_SUBDOMAIN;
-const WEBHOOK_SECRET = process.env.WEBHOOK_SECRET;
 const WEBHOOK_URL = process.env.WEBHOOK_URL;
 const ORTTO_API_KEY = process.env.ORTTO_API_KEY;
 
-// Function to create Thinkific Webhooks
+// Utility: Centralized Error Handling
+const handleError = (res, error, message = "Internal Server Error") => {
+  console.error(message, error.response?.data || error.message || error);
+  res.status(500).send(message);
+};
+
+// Utility: Validate Webhook Payload
+const validateWebhookPayload = (data) => {
+  if (!data.resource || !data.action || !data.payload) {
+    throw new Error("Invalid webhook payload");
+  }
+};
+
+// Function to Create Webhook for Thinkific Events (User Sign-Up, Enrollment Created)
 const createWebhook = async (topic) => {
   try {
     const response = await axios.post(
       `https://api.thinkific.com/api/v2/webhooks`,
       {
         topic,
-        target_url: WEBHOOK_URL
+        target_url: WEBHOOK_URL,
       },
       {
         headers: {
@@ -40,92 +51,50 @@ const createWebhook = async (topic) => {
     );
   }
 };
+const prepareOrttoPayload = (userData) => {
+  let phone = null;
 
-// createWebhook("user.signin");
-// createWebhook("enrollment.created");
-
-// Middleware to Verify Webhook Signature
-// const verifyWebhook = (req, res, next) => {
-//   const signature = req.headers["X-Thinkific-Hmac-Sha256"];
-//   const payload = JSON.stringify(req.body);
-
-//   console.log("Verifying signature", payload);
-
-//   // Function to validate the HMAC signature
-//   const computedHash = createHmac("sha256", WEBHOOK_SECRET)
-//     .update(payload, "utf8")
-//     .digest("hex");
-
-//   if (computedHash !== signature) {
-//     console.error("Invalid webhook signature");
-//     return res.status(400).send("Invalid signature");
-//   }
-
-//   console.log("Signature verified");
-
-//   next();
-// };
-
-
-// Handle Incoming Webhooks
-app.post("/webhook/ortto", async (req, res) => {
-  const data = req.body;
-
-  console.log("Webhook received:", JSON.stringify(data, null, 2));
-
-  try {
-    if (data.action === "user.signup") {
-      await updateOrttoUser(data.payload);
-    } else if (data.action === "enrollments.created") {
-      await updateOrttoEnrollment(data.payload);
-    } else if (data.action === "signin") {
-      await updateOrttoUser(data.payload);
-    }
-    res.status(200).send("Webhook processed");
-  } catch (error) {
-    console.error("Error processing webhook:", error.message);
-    res.status(500).send("Internal Server Error");
+  if (Array.isArray(userData.custom_profile_fields)) {
+    const phoneField = userData.custom_profile_fields.find(
+      (field) => field.label === "Phone"
+    );
+    phone = phoneField ? phoneField.value : null;
   }
-});
 
-
-// Function to Update User in Ortto
-const updateOrttoUser = async (userData) => {
-  try {
-    // Extract the phone number from custom_profile_fields
-    let phone = null;
-    if (Array.isArray(userData.custom_profile_fields)) {
-      const phoneField = userData.custom_profile_fields.find(
-        (field) => field.label === "Phone"
-      );
-      phone = phoneField ? phoneField.value : null;
-    }
-
-    const data = {
-      people: [
-        {
-          fields: {
-            "str::email": userData.email,
-            "str::first": userData.first_name,
-            "str::last": userData.last_name,
-            "phn::phone": phone
-              ? {
+  return {
+    people: [
+      {
+        fields: {
+          "str::email": userData.email,
+          "str::first": userData.first_name,
+          "str::last": userData.last_name,
+          "phn::phone": phone
+            ? {
                 phone: phone,
                 parse_with_country_code: true,
               }
-              : null,
-          },
+            : null,
         },
-      ],
-      async: true,
-      merge_by: ["str::email"],
-      merge_strategy: 2,
-      find_strategy: 0,
-    };
+      },
+    ],
+    async: true,
+    merge_by: ["str::email"],
+    merge_strategy: 2,
+    find_strategy: 0,
+  };
+};
 
+// Create Thinkific Webhooks
+// createWebhook("user.signup");
+// createWebhook("enrollment.created");
+
+// Function to Create/Update User in Ortto
+const updateOrttoUser = async (userData) => {
+  try {
+    const payload = prepareOrttoPayload(userData);
     const response = await axios.post(
       "https://api.eu.ap3api.com/v1/person/merge",
-      data,
+      payload,
       {
         headers: {
           "X-Api-Key": `${ORTTO_API_KEY}`,
@@ -133,70 +102,141 @@ const updateOrttoUser = async (userData) => {
         },
       }
     );
-    console.log("Ortto user updated:", response.data);
+    console.log("Ortto user created/updated:", response.data);
   } catch (error) {
     console.error(
-      "Error updating Ortto user:",
+      "Error creating/updating Ortto user:",
       error.response?.data || error.message
     );
   }
 };
 
-
-// Function to Update Enrollment in Ortto
-// const updateOrttoEnrollment = async (enrollmentData) => {
-//   try {
-//     const response = await axios.post(
-//       "https://api.ortto.com/v1/enrollments",
-//       {
-//         email: enrollmentData.user_email,
-//         course_name: enrollmentData.course_name,
-//         progress: enrollmentData.progress || 0,
-//       },
-//       {
-//         headers: {
-//           "X-Api-Key": `${ORTTO_API_KEY}`,
-//           "Content-Type": "application/json",
-//         },
-//       }
-//     );
-//     console.log("Ortto enrollment updated:", response.data);
-//   } catch (error) {
-//     console.error(
-//       "Error updating Ortto enrollment:",
-//       error.response?.data || error.message
-//     );
-//   }
-// };
-
-
-
-const fetchEnrollments = async (page = 1, limit = 50) => {
+// Function to Create Custom Field in Ortto (Based on the documentation)
+const createOrttoCustomField = async (fieldName, fieldId) => {
   try {
-    const response = await axios.get(
-      `https://api.thinkific.com/api/public/v1/courses?page=1&limit=7`,
+    const payload = {
+      "name": fieldName, // The display name for the custom field
+    //   field_id: fieldId, // The unique field identifier
+      "type": "text", // The type of the custom field, you can use "text" for course names
+      "track_changes": true, // Optionally track changes to this field
+    };
+
+    const response = await axios.post(
+      "https://api.eu.ap3api.com/v1/person/custom-field/create",
+      payload,
       {
         headers: {
-          "X-Auth-API-Key": `${THINKIFIC_API_KEY}`,
-          "X-Auth-Subdomain": `${THINKIFIC_SUBDOMAIN}`,
+          "X-Api-Key": `${ORTTO_API_KEY}`,
           "Content-Type": "application/json",
-        }
+        },
       }
     );
 
-    console.log("Enrollments fetched on server start:", response.data);
+    console.log(`Custom field created:`, response.data);
     return response.data;
   } catch (error) {
     console.error(
-      "Error getting enrollments:",
+      "Error creating custom field:",
       error.response?.data || error.message
     );
   }
 };
+
+// Function to Create/Update Enrollment in Ortto with Dynamic Custom Fields
+const prepareOrttoBundlePayload = (enrollmentData) => {
+  const { user, course } = enrollmentData; // Assuming `course` is an object, not an array.
+
+  // Ensure course is wrapped in an array if it's a single object
+  const courses = Array.isArray(course) ? course : [course]; // Wrap course in an array if it's not already an array
+
+  // Create dynamic custom fields for each course
+  const customFields = {};
+
+  // Loop through the courses and create a custom field for each one
+  courses.forEach(async (course) => {
+    const customFieldName = `${course.name}`; // You can change this based on your requirements
+    const customFieldId = `str:cm:course_${course.id}`; // Unique field ID for each course
+
+    // Create custom field for each course if it doesn't exist
+    await createOrttoCustomField(customFieldName, customFieldId);
+
+    customFields[customFieldId] = course.name; // Map the custom field with course name
+  });
+
+  return {
+    people: [
+      {
+        fields: {
+          "str::email": user.email,
+          ...customFields, // Add dynamic custom fields for each course
+        },
+      },
+    ],
+    async: true,
+    merge_by: ["str::email"],
+    merge_strategy: 2,
+    find_strategy: 1,
+  };
+};
+
+// Handle the incoming webhook for enrollment data
+const createOrttoEnrollment = async (enrollmentData) => {
+  try {
+    const payload = prepareOrttoBundlePayload(enrollmentData);
+
+    const response = await axios.post(
+      "https://api.eu.ap3api.com/v1/person/merge",
+      payload,
+      {
+        headers: {
+          "X-Api-Key": `${ORTTO_API_KEY}`,
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    console.log("Ortto bundlename and courses updated:", response.data);
+  } catch (error) {
+    console.error(
+      "Error updating Ortto bundlename and courses:",
+      error.response?.data || error.message
+    );
+  }
+};
+
+// Webhook Handlers Mapping
+const actionHandlers = {
+  "user:signup": updateOrttoUser,
+  "user:signin": updateOrttoUser,
+  "user:updated": updateOrttoUser,
+  "enrollment:created": createOrttoEnrollment,
+  "enrollment:progress": createOrttoEnrollment,
+};
+
+// Handle Incoming Webhooks
+app.post("/api/ortto", async (req, res) => {
+  try {
+    validateWebhookPayload(req.body);
+
+    const { resource, action, payload } = req.body;
+    const handlerKey = `${resource}:${action}`;
+
+    const handler = actionHandlers[handlerKey];
+    if (!handler) {
+      console.log(`No handler found for ${handlerKey}`);
+      return res.status(200).send("No action required");
+    }
+
+    await handler(payload);
+    console.log("payload: ", payload);
+
+    res.status(200).send("Webhook processed");
+  } catch (error) {
+    handleError(res, error, "Error processing webhook");
+  }
+});
 
 // Start the Server
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, async () => {
   console.log(`Server running on port ${PORT}`);
-  // await fetchEnrollments(); // Call the function to fetch enrollments on startup
 });
