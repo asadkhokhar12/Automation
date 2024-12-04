@@ -23,8 +23,7 @@ const createWebhook = async (topic) => {
       `https://api.thinkific.com/api/v2/webhooks`,
       {
         topic,
-        target_url: WEBHOOK_URL,
-        // secret: WEBHOOK_SECRET,
+        target_url: WEBHOOK_URL
       },
       {
         headers: {
@@ -67,11 +66,12 @@ const createWebhook = async (topic) => {
 //   next();
 // };
 
+
 // Handle Incoming Webhooks
 app.post("/webhook/ortto", async (req, res) => {
   const data = req.body;
 
-  console.log("Webhook received:", data);
+  console.log("Webhook received:", JSON.stringify(data, null, 2));
 
   try {
     if (data.action === "user.signup") {
@@ -92,6 +92,15 @@ app.post("/webhook/ortto", async (req, res) => {
 // Function to Update User in Ortto
 const updateOrttoUser = async (userData) => {
   try {
+    // Extract the phone number from custom_profile_fields
+    let phone = null;
+    if (Array.isArray(userData.custom_profile_fields)) {
+      const phoneField = userData.custom_profile_fields.find(
+        (field) => field.label === "Phone"
+      );
+      phone = phoneField ? phoneField.value : null;
+    }
+
     const data = {
       people: [
         {
@@ -99,10 +108,13 @@ const updateOrttoUser = async (userData) => {
             "str::email": userData.email,
             "str::first": userData.first_name,
             "str::last": userData.last_name,
-          }
-          // location: {
-          //   source_ip: userData.ip_address || "Unknown",
-          // },
+            "phn::phone": phone
+              ? {
+                phone: phone,
+                parse_with_country_code: true,
+              }
+              : null,
+          },
         },
       ],
       async: true,
@@ -128,7 +140,8 @@ const updateOrttoUser = async (userData) => {
       error.response?.data || error.message
     );
   }
-}
+};
+
 
 // Function to Update Enrollment in Ortto
 // const updateOrttoEnrollment = async (enrollmentData) => {
@@ -156,6 +169,34 @@ const updateOrttoUser = async (userData) => {
 //   }
 // };
 
+
+
+const fetchEnrollments = async (page = 1, limit = 50) => {
+  try {
+    const response = await axios.get(
+      `https://api.thinkific.com/api/public/v1/courses?page=1&limit=7`,
+      {
+        headers: {
+          "X-Auth-API-Key": `${THINKIFIC_API_KEY}`,
+          "X-Auth-Subdomain": `${THINKIFIC_SUBDOMAIN}`,
+          "Content-Type": "application/json",
+        }
+      }
+    );
+
+    console.log("Enrollments fetched on server start:", response.data);
+    return response.data;
+  } catch (error) {
+    console.error(
+      "Error getting enrollments:",
+      error.response?.data || error.message
+    );
+  }
+};
+
 // Start the Server
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+app.listen(PORT, async () => {
+  console.log(`Server running on port ${PORT}`);
+  // await fetchEnrollments(); // Call the function to fetch enrollments on startup
+});
