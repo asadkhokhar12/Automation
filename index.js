@@ -13,6 +13,7 @@ const THINKIFIC_API_KEY = process.env.THINKIFIC_API_KEY;
 const THINKIFIC_SUBDOMAIN = process.env.THINKIFIC_SUBDOMAIN;
 const WEBHOOK_URL = process.env.WEBHOOK_URL;
 const ORTTO_API_KEY = process.env.ORTTO_API_KEY;
+const ORTTO_API_URL = process.env.ORTTO_API_URL;
 
 // Utility: Centralized Error Handling
 const handleError = (res, error, message = "Internal Server Error") => {
@@ -20,32 +21,14 @@ const handleError = (res, error, message = "Internal Server Error") => {
   res.status(500).send({ error: message });
 };
 
-// Function to Create Webhook for Thinkific Events
-const createWebhook = async (topic) => {
-  try {
-    const response = await axios.post(
-      `https://api.thinkific.com/api/v2/webhooks`,
-      { topic, target_url: WEBHOOK_URL },
-      {
-        headers: {
-          Authorization: `Bearer ${THINKIFIC_API_KEY}`,
-          "Content-Type": "application/json",
-        },
-      }
-    );
-    console.log(`${topic} Webhook Created:`, response.data);
-  } catch (error) {
-    console.error(
-      `Error creating ${topic} webhook:`,
-      error.response?.data || error.message
-    );
-  }
-};
-
 // Helper: Prepare Payload for Ortto User Creation/Update
 const prepareOrttoUserPayload = (userData) => {
   const phoneField = userData.custom_profile_fields?.find(
     (field) => field.label === "Phone"
+  );
+
+  const yearOfBirthField = userData.custom_profile_fields?.find(
+    (field) => field.label === "Year of Birth"
   );
 
   return {
@@ -55,6 +38,9 @@ const prepareOrttoUserPayload = (userData) => {
           "str::email": userData.email,
           "str::first": userData.first_name,
           "str::last": userData.last_name,
+          "str:cm:year-of-birth-2": yearOfBirthField
+            ? yearOfBirthField.value
+            : null,
           "phn::phone": phoneField
             ? { phone: phoneField.value, parse_with_country_code: true }
             : null,
@@ -72,7 +58,7 @@ const prepareOrttoUserPayload = (userData) => {
 const ensureCustomFieldExists = async (fieldName) => {
   try {
     const response = await axios.post(
-      "https://api.au.ap3api.com/v1/person/custom-field/get",
+      `${ORTTO_API_URL}/person/custom-field/get`,
       {},
       {
         headers: {
@@ -83,7 +69,7 @@ const ensureCustomFieldExists = async (fieldName) => {
     );
     const fields = response.data?.fields || [];
     const exists = fields.some((field) => field.field.name === fieldName);
-    
+
     if (!exists) {
       await createOrttoCustomField(fieldName);
     }
@@ -105,7 +91,7 @@ const createOrttoCustomField = async (fieldName) => {
     };
 
     const response = await axios.post(
-      "https://api.au.ap3api.com/v1/person/custom-field/create",
+      `${ORTTO_API_URL}/person/custom-field/create`,
       payload,
       {
         headers: {
@@ -133,7 +119,7 @@ const updateOrttoUser = async (userData) => {
   try {
     const payload = prepareOrttoUserPayload(userData);
     const response = await axios.post(
-      "https://api.au.ap3api.com/v1/person/merge",
+      `${ORTTO_API_URL}/person/merge`,
       payload,
       {
         headers: {
@@ -184,7 +170,7 @@ const updateCourseProgress = async (progressData) => {
     };
 
     const response = await axios.post(
-      "https://api.au.ap3api.com/v1/person/merge",
+      `${ORTTO_API_URL}/person/merge`,
       payload,
       {
         headers: {
@@ -194,7 +180,7 @@ const updateCourseProgress = async (progressData) => {
       }
     );
 
-    console.log("Course progress updated:", response.data);
+    console.log("Course Progress Updated:", response.data);
   } catch (error) {
     console.error(
       "Error updating course progress:",
@@ -217,7 +203,7 @@ const createEnrollment = async (progressData) => {
       Math.round(parseFloat(progressData.percentage_completed) * 100) + "%";
 
     const courseKey = `str:cm:${sanitizedCourseName}(${progressData.course.id})`;
-    
+
     const generateKey = `${progressData.course.name}${progressData.course.id}`;
 
     await ensureCustomFieldExists(generateKey);
@@ -240,7 +226,7 @@ const createEnrollment = async (progressData) => {
     };
 
     const response = await axios.post(
-      "https://api.au.ap3api.com/v1/person/merge",
+      `${ORTTO_API_URL}/person/merge`,
       payload,
       {
         headers: {
@@ -279,7 +265,7 @@ const orderCreated = async (progressData) => {
     };
 
     const response = await axios.post(
-      "https://api.au.ap3api.com/v1/person/merge",
+      `${ORTTO_API_URL}/person/merge`,
       payload,
       {
         headers: {
@@ -297,14 +283,40 @@ const orderCreated = async (progressData) => {
   }
 };
 
+// const activities = async () => {
+
+//   try {
+
+//     const response = await axios.post(
+//       `${ORTTO_API_URL}/person/get/activities`,
+//       {
+//         "person_id": "01JE9QPSPTBKSGSHE2PHE5FRV3",
+//       },
+//       {
+//         headers: {
+//           "X-Api-Key": ORTTO_API_KEY,
+//           "Content-Type": "application/json",
+//         },
+//       }
+//     );
+
+//     console.log("People Activities:", response.data);
+//   } catch (error) {
+//     console.error(
+//       "Error updating course progress:",
+//       error.response?.data || error.message
+//     );
+//   }
+// };
+
 // Webhook Handlers Mapping
+
 const actionHandlers = {
   "user:signup": updateOrttoUser,
   "user:signin": updateOrttoUser,
   "user:updated": updateOrttoUser,
   "enrollment:created": createEnrollment,
   "enrollment:progress": updateCourseProgress,
-  "enrollment:completed": updateCourseProgress,
   "order:created": orderCreated,
 };
 
@@ -321,24 +333,45 @@ app.post("/api/ortto/webhook", async (req, res) => {
     }
 
     await handler(payload);
-    console.log("Payload: " ,payload);
-    
+    console.log("Payload: ", payload);
+
     res.status(200).send("Webhook processed");
   } catch (error) {
     handleError(res, error, "Error processing webhook");
   }
 });
 
-// // Setup Thinkific Webhooks
+// Function to Create Webhook for Thinkific Events
+const createWebhook = async (topic) => {
+  try {
+    const response = await axios.post(
+      `https://api.thinkific.com/api/v2/webhooks`,
+      { topic, target_url: WEBHOOK_URL },
+      {
+        headers: {
+          Authorization: `Bearer ${THINKIFIC_API_KEY}`,
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    console.log(`${topic} Webhook Created:`, response.data);
+  } catch (error) {
+    console.error(
+      `Error creating ${topic} webhook:`,
+      error.response?.data || error.message
+    );
+  }
+};
+
+// Setup Thinkific Webhooks
 // const setupThinkificWebhooks = async () => {
 //   const topics = [
-//     "user:signup",
-//     "user:signin",
-//     "user:updated",
-//     "enrollment:created",
-//     "enrollment:progress",
-//     "enrollment:completed",
-//     "order:created",
+//     "user.signup",
+//     "user.signin",
+//     "user.updated",
+//     "enrollment.created",
+//     "enrollment.progress",
+//     "order.created",
 //   ];
 
 //   for (const topic of topics) {
@@ -350,5 +383,5 @@ app.post("/api/ortto/webhook", async (req, res) => {
 const port = process.env.PORT || 3000;
 app.listen(port, () => {
   console.log(`Server running on port ${port}`);
-//   setupThinkificWebhooks();
+  // setupThinkificWebhooks();
 });
