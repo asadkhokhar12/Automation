@@ -342,26 +342,26 @@ app.post("/api/ortto/webhook", async (req, res) => {
 });
 
 // Function to Create Webhook for Thinkific Events
-const createWebhook = async (topic) => {
-  try {
-    const response = await axios.post(
-      `https://api.thinkific.com/api/v2/webhooks`,
-      { topic, target_url: WEBHOOK_URL },
-      {
-        headers: {
-          Authorization: `Bearer ${THINKIFIC_API_KEY}`,
-          "Content-Type": "application/json",
-        },
-      }
-    );
-    console.log(`${topic} Webhook Created:`, response.data);
-  } catch (error) {
-    console.error(
-      `Error creating ${topic} webhook:`,
-      error.response?.data || error.message
-    );
-  }
-};
+// const createWebhook = async (topic) => {
+//   try {
+//     const response = await axios.post(
+//       `https://api.thinkific.com/api/v2/webhooks`,
+//       { topic, target_url: WEBHOOK_URL },
+//       {
+//         headers: {
+//           Authorization: `Bearer ${THINKIFIC_API_KEY}`,
+//           "Content-Type": "application/json",
+//         },
+//       }
+//     );
+//     console.log(`${topic} Webhook Created:`, response.data);
+//   } catch (error) {
+//     console.error(
+//       `Error creating ${topic} webhook:`,
+//       error.response?.data || error.message
+//     );
+//   }
+// };
 
 // Setup Thinkific Webhooks
 // const setupThinkificWebhooks = async () => {
