@@ -1,0 +1,733 @@
+{
+  "usertest+1@gmail.com": {
+    "sign_in_count": 1,
+    "old_bundles": []
+  },
+  "testuser_2@gmail.com": {
+    "sign_in_count": 2,
+    "old_bundles": []
+  },
+  "pippetpeter@gmail.com": {
+    "sign_in_count": 1,
+    "old_bundles": []
+  },
+  "test_2@gmail.com": {
+    "sign_in_count": 1,
+    "old_bundles": [
+      "Health Stack Member | (WA)  Orrcon -  Albany",
+      "Health Stack Promo Bundle",
+      "Health Stack Member | Innovative Window Solutions"
+    ]
+  },
+  "james@healthstack1.com": {
+    "sign_in_count": 1,
+    "old_bundles": [
+      "Australian Motoring Service"
+    ]
+  },
+  "testuser_90@gmail.com": {
+    "sign_in_count": 1,
+    "old_bundles": [
+      "Health Stack Member | Innovative Window Solutions",
+      "Innovative Window Solutions",
+      "Health Stack Member | (WA)  Orrcon -  Albany",
+      "Health Stack Promo Bundle"
+    ]
+  },
+  "usertest2@gmail.com": {
+    "sign_in_count": 1,
+    "old_bundles": [
+      "Health Stack Member | Innovative Window Solutions",
+      "Innovative Window Solutions"
+    ]
+  },
+  "asadshoaibkhokhar@gmail.com": {
+    "sign_in_count": 2,
+    "old_bundles": []
+  },
+  "testuser+1@gmail.com": {
+    "sign_in_count": 1,
+    "old_bundles": [
+      "Innovative Window Solutions",
+      "Health Stack Promo Bundle",
+      "Health Stack Member | (WA)  Orrcon -  Albany"
+    ],
+    "enrolled_courses": [
+      2621852,
+      1430004
+    ],
+    "enrollment_count": 2
+  },
+  "testuser+29@gmail.com": {
+    "sign_in_count": 1,
+    "old_bundles": [
+      "Health Stack Member | Innovative Window Solutions"
+    ],
+    "enrolled_courses": [
+      1066333
+    ],
+    "enrollment_count": null
+  },
+  "test_02@gmail.com": {
+    "sign_in_count": 1,
+    "old_bundles": [
+      "Health Stack Member | Innovative Window Solutions"
+    ],
+    "enrollment_count": 1,
+    "enrolled_courses": [
+      2207522
+    ]
+  },
+  "test+21@gmail.com": {
+    "sign_in_count": 1,
+    "old_bundles": [
+      "Health Stack Member | Innovative Window Solutions"
+    ],
+    "enrolled_courses": [
+      {
+        "course_id": 2172058,
+        "course_name": "New Starter Program - Staff (5 mins)",
+        "enrollment_id": 594715885,
+        "enrolled_at": "2024-12-11T23:43:25.345Z",
+        "percentage_completed": "0.0"
+      },
+      {
+        "course_id": 2317353,
+        "course_name": "Dry July (6 mins)",
+        "enrollment_id": 594715874,
+        "enrolled_at": "2024-12-11T23:43:23.537Z",
+        "percentage_completed": "0.0"
+      },
+      {
+        "course_id": 1837001,
+        "course_name": "Tips from a Dietician (12 mins)",
+        "enrollment_id": 594715894,
+        "enrolled_at": "2024-12-11T23:43:26.549Z",
+        "percentage_completed": "0.0"
+      },
+      {
+        "course_id": 631402,
+        "course_name": "Pain Workshop I (8 mins)",
+        "enrollment_id": 594715933,
+        "enrolled_at": "2024-12-11T23:43:35.933Z",
+        "percentage_completed": "0.0"
+      },
+      {
+        "course_id": 1746301,
+        "course_name": "Workstation Setup - (12 mins)",
+        "enrollment_id": 594715900,
+        "enrolled_at": "2024-12-11T23:43:27.798Z",
+        "percentage_completed": "0.0"
+      },
+      {
+        "course_id": 2418535,
+        "course_name": "Onboarding Health Stack Member (5 mins)",
+        "enrollment_id": 594715943,
+        "enrolled_at": "2024-12-11T23:43:37.877Z",
+        "percentage_completed": "0.0"
+      },
+      {
+        "course_id": 1312829,
+        "course_name": "Better Sleep - Module + Quiz (2 x 10 mins) ",
+        "enrollment_id": 594715913,
+        "enrolled_at": "2024-12-11T23:43:30.546Z",
+        "percentage_completed": "0.0"
+      },
+      {
+        "course_id": 1066334,
+        "course_name": "General Yoga (5 x 30 mins)",
+        "enrollment_id": 594715922,
+        "enrolled_at": "2024-12-11T23:43:33.159Z",
+        "percentage_completed": "0.0"
+      },
+      {
+        "course_id": 2211670,
+        "course_name": "Sleep Breathing Session (5 mins)",
+        "enrollment_id": 594715882,
+        "enrolled_at": "2024-12-11T23:43:24.785Z",
+        "percentage_completed": "0.0"
+      },
+      {
+        "course_id": 1430004,
+        "course_name": "Manual Handling Training - All Staff & Quiz (3 x 10 mins)",
+        "enrollment_id": 594715919,
+        "enrolled_at": "2024-12-11T23:43:32.412Z",
+        "percentage_completed": "0.0"
+      },
+      {
+        "course_id": 1752686,
+        "course_name": "QUIT - Team Members (10 mins)",
+        "enrollment_id": 594715898,
+        "enrolled_at": "2024-12-11T23:43:27.200Z",
+        "percentage_completed": "0.0"
+      },
+      {
+        "course_id": 2207522,
+        "course_name": "Happy Minds Project",
+        "enrollment_id": 594715936,
+        "enrolled_at": "2024-12-11T23:43:36.624Z",
+        "percentage_completed": "0.0"
+      },
+      {
+        "course_id": 2438906,
+        "course_name": "Stress Tools (3 x 5 mins)",
+        "enrollment_id": 594715939,
+        "enrolled_at": "2024-12-11T23:43:37.244Z",
+        "percentage_completed": "0.0"
+      },
+      {
+        "course_id": 2297232,
+        "course_name": "Deskfit (6 mins)",
+        "enrollment_id": 594715878,
+        "enrolled_at": "2024-12-11T23:43:24.191Z",
+        "percentage_completed": "0.0"
+      },
+      {
+        "course_id": 2068665,
+        "course_name": "Hand Injury Awareness (9 mins)",
+        "enrollment_id": 594715891,
+        "enrolled_at": "2024-12-11T23:43:25.959Z",
+        "percentage_completed": "0.0"
+      },
+      {
+        "course_id": 1444296,
+        "course_name": "Better Sleep - Toolbox Sessions (2 x 10 mins)",
+        "enrollment_id": 594715908,
+        "enrolled_at": "2024-12-11T23:43:29.151Z",
+        "percentage_completed": "0.0"
+      },
+      {
+        "course_id": 1313813,
+        "course_name": "Better Sleep - Support Package (2 x 10 mins)",
+        "enrollment_id": 594715910,
+        "enrolled_at": "2024-12-11T23:43:29.804Z",
+        "percentage_completed": "0.0"
+      },
+      {
+        "course_id": 1066333,
+        "course_name": "General Pilates (5 x 30 mins)",
+        "enrollment_id": 594715924,
+        "enrolled_at": "2024-12-11T23:43:33.822Z",
+        "percentage_completed": "0.0"
+      },
+      {
+        "course_id": 1389214,
+        "course_name": "Manual Handling Training (30 mins)",
+        "enrollment_id": 594715915,
+        "enrolled_at": "2024-12-11T23:43:31.295Z",
+        "percentage_completed": "0.0"
+      },
+      {
+        "course_id": 783166,
+        "course_name": "Warm Ups for Work (8 mins)",
+        "enrollment_id": 594715931,
+        "enrolled_at": "2024-12-11T23:43:35.241Z",
+        "percentage_completed": "0.0"
+      },
+      {
+        "course_id": 1066336,
+        "course_name": "Posture Pilates Classes (5 x 30 mins)",
+        "enrollment_id": 594715928,
+        "enrolled_at": "2024-12-11T23:43:34.537Z",
+        "percentage_completed": "0.0"
+      },
+      {
+        "course_id": 1533837,
+        "course_name": "Hydration Awareness - (2 x 10 mins)",
+        "enrollment_id": 594715904,
+        "enrolled_at": "2024-12-11T23:43:28.473Z",
+        "percentage_completed": "0.0"
+      }
+    ],
+    "total_enrollment_count": 22
+  },
+  "testuser+234@gmail.com": {
+    "sign_in_count": 1,
+    "old_bundles": [
+      "Health Stack Member | Innovative Window Solutions"
+    ],
+    "enrolled_courses": [
+      {
+        "course_id": 1444296,
+        "course_name": "Better Sleep - Toolbox Sessions (2 x 10 mins)",
+        "enrollment_id": 594717924,
+        "enrolled_at": "2024-12-11T23:57:06.758Z",
+        "percentage_completed": "0.0"
+      },
+      {
+        "course_id": 1066336,
+        "course_name": "Posture Pilates Classes (5 x 30 mins)",
+        "enrollment_id": 594717936,
+        "enrolled_at": "2024-12-11T23:57:10.737Z",
+        "percentage_completed": "0.0"
+      },
+      {
+        "course_id": 1389214,
+        "course_name": "Manual Handling Training (30 mins)",
+        "enrollment_id": 594717928,
+        "enrolled_at": "2024-12-11T23:57:08.025Z",
+        "percentage_completed": "0.0"
+      },
+      {
+        "course_id": 1066333,
+        "course_name": "General Pilates (5 x 30 mins)",
+        "enrollment_id": 594717934,
+        "enrolled_at": "2024-12-11T23:57:10.022Z",
+        "percentage_completed": "0.0"
+      },
+      {
+        "course_id": 2418535,
+        "course_name": "Onboarding Health Stack Member (5 mins)",
+        "enrollment_id": 594717943,
+        "enrolled_at": "2024-12-11T23:57:14.437Z",
+        "percentage_completed": "0.0"
+      },
+      {
+        "course_id": 1312829,
+        "course_name": "Better Sleep - Module + Quiz (2 x 10 mins) ",
+        "enrollment_id": 594717927,
+        "enrolled_at": "2024-12-11T23:57:07.717Z",
+        "percentage_completed": "0.0"
+      },
+      {
+        "course_id": 1430004,
+        "course_name": "Manual Handling Training - All Staff & Quiz (3 x 10 mins)",
+        "enrollment_id": 594717930,
+        "enrolled_at": "2024-12-11T23:57:08.588Z",
+        "percentage_completed": "0.0"
+      },
+      {
+        "course_id": 2297232,
+        "course_name": "Deskfit (6 mins)",
+        "enrollment_id": 594717908,
+        "enrolled_at": "2024-12-11T23:57:01.616Z",
+        "percentage_completed": "0.0"
+      },
+      {
+        "course_id": 1746301,
+        "course_name": "Workstation Setup - (12 mins)",
+        "enrollment_id": 594717921,
+        "enrolled_at": "2024-12-11T23:57:05.833Z",
+        "percentage_completed": "0.0"
+      },
+      {
+        "course_id": 2211670,
+        "course_name": "Sleep Breathing Session (5 mins)",
+        "enrollment_id": 594717910,
+        "enrolled_at": "2024-12-11T23:57:02.438Z",
+        "percentage_completed": "0.0"
+      },
+      {
+        "course_id": 631402,
+        "course_name": "Pain Workshop I (8 mins)",
+        "enrollment_id": 594717939,
+        "enrolled_at": "2024-12-11T23:57:12.035Z",
+        "percentage_completed": "0.0"
+      },
+      {
+        "course_id": 1752686,
+        "course_name": "QUIT - Team Members (10 mins)",
+        "enrollment_id": 594717919,
+        "enrolled_at": "2024-12-11T23:57:04.956Z",
+        "percentage_completed": "0.0"
+      },
+      {
+        "course_id": 783166,
+        "course_name": "Warm Ups for Work (8 mins)",
+        "enrollment_id": 594717937,
+        "enrolled_at": "2024-12-11T23:57:11.331Z",
+        "percentage_completed": "0.0"
+      },
+      {
+        "course_id": 2438906,
+        "course_name": "Stress Tools (3 x 5 mins)",
+        "enrollment_id": 594717942,
+        "enrolled_at": "2024-12-11T23:57:13.623Z",
+        "percentage_completed": "0.0"
+      },
+      {
+        "course_id": 2207522,
+        "course_name": "Happy Minds Project",
+        "enrollment_id": 594717941,
+        "enrolled_at": "2024-12-11T23:57:12.832Z",
+        "percentage_completed": "0.0"
+      },
+      {
+        "course_id": 2317353,
+        "course_name": "Dry July (6 mins)",
+        "enrollment_id": 594717905,
+        "enrolled_at": "2024-12-11T23:57:00.934Z",
+        "percentage_completed": "0.0"
+      },
+      {
+        "course_id": 1837001,
+        "course_name": "Tips from a Dietician (12 mins)",
+        "enrollment_id": 594717918,
+        "enrolled_at": "2024-12-11T23:57:04.275Z",
+        "percentage_completed": "0.0"
+      },
+      {
+        "course_id": 2172058,
+        "course_name": "New Starter Program - Staff (5 mins)",
+        "enrollment_id": 594717912,
+        "enrolled_at": "2024-12-11T23:57:03.120Z",
+        "percentage_completed": "0.0"
+      },
+      {
+        "course_id": 2068665,
+        "course_name": "Hand Injury Awareness (9 mins)",
+        "enrollment_id": 594717917,
+        "enrolled_at": "2024-12-11T23:57:03.785Z",
+        "percentage_completed": "0.0"
+      },
+      {
+        "course_id": 1533837,
+        "course_name": "Hydration Awareness - (2 x 10 mins)",
+        "enrollment_id": 594717922,
+        "enrolled_at": "2024-12-11T23:57:06.294Z",
+        "percentage_completed": "0.0"
+      },
+      {
+        "course_id": 1313813,
+        "course_name": "Better Sleep - Support Package (2 x 10 mins)",
+        "enrollment_id": 594717925,
+        "enrolled_at": "2024-12-11T23:57:07.319Z",
+        "percentage_completed": "0.0"
+      },
+      {
+        "course_id": 1066334,
+        "course_name": "General Yoga (5 x 30 mins)",
+        "enrollment_id": 594717931,
+        "enrolled_at": "2024-12-11T23:57:09.222Z",
+        "percentage_completed": "0.0"
+      }
+    ],
+    "total_enrollment_count": 22
+  },
+  "usertest@gmail.com": {
+    "sign_in_count": 1,
+    "old_bundles": [
+      "Health Stack Member | Innovative Window Solutions"
+    ],
+    "enrolled_courses": [
+      {
+        "course_id": 2172058,
+        "course_name": "New Starter Program - Staff (5 mins)",
+        "enrollment_id": 594718763,
+        "enrolled_at": "2024-12-12T00:05:36.393Z",
+        "percentage_completed": "0.0"
+      },
+      {
+        "course_id": 2438906,
+        "course_name": "Stress Tools (3 x 5 mins)",
+        "enrollment_id": 594718799,
+        "enrolled_at": "2024-12-12T00:05:43.648Z",
+        "percentage_completed": "0.0"
+      },
+      {
+        "course_id": 2317353,
+        "course_name": "Dry July (6 mins)",
+        "enrollment_id": 594718760,
+        "enrolled_at": "2024-12-12T00:05:34.604Z",
+        "percentage_completed": "0.0"
+      },
+      {
+        "course_id": 1066333,
+        "course_name": "General Pilates (5 x 30 mins)",
+        "enrollment_id": 594718794,
+        "enrolled_at": "2024-12-12T00:05:42.049Z",
+        "percentage_completed": "0.0"
+      },
+      {
+        "course_id": 1837001,
+        "course_name": "Tips from a Dietician (12 mins)",
+        "enrollment_id": 594718780,
+        "enrolled_at": "2024-12-12T00:05:37.529Z",
+        "percentage_completed": "0.0"
+      },
+      {
+        "course_id": 1533837,
+        "course_name": "Hydration Awareness - (2 x 10 mins)",
+        "enrollment_id": 594718785,
+        "enrolled_at": "2024-12-12T00:05:39.273Z",
+        "percentage_completed": "0.0"
+      },
+      {
+        "course_id": 1444296,
+        "course_name": "Better Sleep - Toolbox Sessions (2 x 10 mins)",
+        "enrollment_id": 594718787,
+        "enrolled_at": "2024-12-12T00:05:39.768Z",
+        "percentage_completed": "0.0"
+      },
+      {
+        "course_id": 2418535,
+        "course_name": "Onboarding Health Stack Member (5 mins)",
+        "enrollment_id": 594718800,
+        "enrolled_at": "2024-12-12T00:05:43.946Z",
+        "percentage_completed": "0.0"
+      },
+      {
+        "course_id": 2297232,
+        "course_name": "Deskfit (6 mins)",
+        "enrollment_id": 594718761,
+        "enrolled_at": "2024-12-12T00:05:35.260Z",
+        "percentage_completed": "0.0"
+      },
+      {
+        "course_id": 1746301,
+        "course_name": "Workstation Setup - (12 mins)",
+        "enrollment_id": 594718784,
+        "enrolled_at": "2024-12-12T00:05:38.735Z",
+        "percentage_completed": "0.0"
+      },
+      {
+        "course_id": 1752686,
+        "course_name": "QUIT - Team Members (10 mins)",
+        "enrollment_id": 594718783,
+        "enrolled_at": "2024-12-12T00:05:38.175Z",
+        "percentage_completed": "0.0"
+      },
+      {
+        "course_id": 2211670,
+        "course_name": "Sleep Breathing Session (5 mins)",
+        "enrollment_id": 594718762,
+        "enrolled_at": "2024-12-12T00:05:35.857Z",
+        "percentage_completed": "0.0"
+      },
+      {
+        "course_id": 1312829,
+        "course_name": "Better Sleep - Module + Quiz (2 x 10 mins) ",
+        "enrollment_id": 594718790,
+        "enrolled_at": "2024-12-12T00:05:40.538Z",
+        "percentage_completed": "0.0"
+      },
+      {
+        "course_id": 1066334,
+        "course_name": "General Yoga (5 x 30 mins)",
+        "enrollment_id": 594718793,
+        "enrolled_at": "2024-12-12T00:05:41.636Z",
+        "percentage_completed": "0.0"
+      },
+      {
+        "course_id": 1389214,
+        "course_name": "Manual Handling Training (30 mins)",
+        "enrollment_id": 594718791,
+        "enrolled_at": "2024-12-12T00:05:41.029Z",
+        "percentage_completed": "0.0"
+      },
+      {
+        "course_id": 631402,
+        "course_name": "Pain Workshop I (8 mins)",
+        "enrollment_id": 594718797,
+        "enrolled_at": "2024-12-12T00:05:43.009Z",
+        "percentage_completed": "0.0"
+      },
+      {
+        "course_id": 2207522,
+        "course_name": "Happy Minds Project",
+        "enrollment_id": 594718798,
+        "enrolled_at": "2024-12-12T00:05:43.338Z",
+        "percentage_completed": "0.0"
+      },
+      {
+        "course_id": 1430004,
+        "course_name": "Manual Handling Training - All Staff & Quiz (3 x 10 mins)",
+        "enrollment_id": 594718792,
+        "enrolled_at": "2024-12-12T00:05:41.351Z",
+        "percentage_completed": "0.0"
+      },
+      {
+        "course_id": 1313813,
+        "course_name": "Better Sleep - Support Package (2 x 10 mins)",
+        "enrollment_id": 594718789,
+        "enrolled_at": "2024-12-12T00:05:40.201Z",
+        "percentage_completed": "0.0"
+      },
+      {
+        "course_id": 783166,
+        "course_name": "Warm Ups for Work (8 mins)",
+        "enrollment_id": 594718796,
+        "enrolled_at": "2024-12-12T00:05:42.694Z",
+        "percentage_completed": "0.0"
+      },
+      {
+        "course_id": 2068665,
+        "course_name": "Hand Injury Awareness (9 mins)",
+        "enrollment_id": 594718773,
+        "enrolled_at": "2024-12-12T00:05:37.014Z",
+        "percentage_completed": "0.0"
+      },
+      {
+        "course_id": 1066336,
+        "course_name": "Posture Pilates Classes (5 x 30 mins)",
+        "enrollment_id": 594718795,
+        "enrolled_at": "2024-12-12T00:05:42.368Z",
+        "percentage_completed": "0.0"
+      }
+    ],
+    "total_enrollment_count": 22
+  },
+  "test+33@gmail.com": {
+    "sign_in_count": 3,
+    "old_bundles": [
+      "Health Stack Member | Innovative Window Solutions"
+    ],
+    "enrolled_courses": [
+      {
+        "course_id": 2172058,
+        "course_name": "New Starter Program - Staff (5 mins)",
+        "enrollment_id": 594719772,
+        "enrolled_at": "2024-12-12T00:15:25.005Z",
+        "percentage_completed": "0.0"
+      },
+      {
+        "course_id": 2068665,
+        "course_name": "Hand Injury Awareness (9 mins)",
+        "enrollment_id": 594719773,
+        "enrolled_at": "2024-12-12T00:15:25.690Z",
+        "percentage_completed": "0.0"
+      },
+      {
+        "course_id": 1312829,
+        "course_name": "Better Sleep - Module + Quiz (2 x 10 mins) ",
+        "enrollment_id": 594719790,
+        "enrolled_at": "2024-12-12T00:15:30.604Z",
+        "percentage_completed": "0.0"
+      },
+      {
+        "course_id": 1066333,
+        "course_name": "General Pilates (5 x 30 mins)",
+        "enrollment_id": 594719803,
+        "enrolled_at": "2024-12-12T00:15:34.025Z",
+        "percentage_completed": "0.0"
+      },
+      {
+        "course_id": 1837001,
+        "course_name": "Tips from a Dietician (12 mins)",
+        "enrollment_id": 594719777,
+        "enrolled_at": "2024-12-12T00:15:26.607Z",
+        "percentage_completed": "0.0"
+      },
+      {
+        "course_id": 2438906,
+        "course_name": "Stress Tools (3 x 5 mins)",
+        "enrollment_id": 594719821,
+        "enrolled_at": "2024-12-12T00:15:37.748Z",
+        "percentage_completed": "0.0"
+      },
+      {
+        "course_id": 1389214,
+        "course_name": "Manual Handling Training (30 mins)",
+        "enrollment_id": 594719792,
+        "enrolled_at": "2024-12-12T00:15:31.299Z",
+        "percentage_completed": "0.0"
+      },
+      {
+        "course_id": 1533837,
+        "course_name": "Hydration Awareness - (2 x 10 mins)",
+        "enrollment_id": 594719783,
+        "enrolled_at": "2024-12-12T00:15:28.578Z",
+        "percentage_completed": "0.0"
+      },
+      {
+        "course_id": 1444296,
+        "course_name": "Better Sleep - Toolbox Sessions (2 x 10 mins)",
+        "enrollment_id": 594719785,
+        "enrolled_at": "2024-12-12T00:15:29.299Z",
+        "percentage_completed": "0.0"
+      },
+      {
+        "course_id": 1066336,
+        "course_name": "Posture Pilates Classes (5 x 30 mins)",
+        "enrollment_id": 594719807,
+        "enrolled_at": "2024-12-12T00:15:34.930Z",
+        "percentage_completed": "0.0"
+      },
+      {
+        "course_id": 631402,
+        "course_name": "Pain Workshop I (8 mins)",
+        "enrollment_id": 594719811,
+        "enrolled_at": "2024-12-12T00:15:36.237Z",
+        "percentage_completed": "0.0"
+      },
+      {
+        "course_id": 1430004,
+        "course_name": "Manual Handling Training - All Staff & Quiz (3 x 10 mins)",
+        "enrollment_id": 594719794,
+        "enrolled_at": "2024-12-12T00:15:32.086Z",
+        "percentage_completed": "0.0"
+      },
+      {
+        "course_id": 1313813,
+        "course_name": "Better Sleep - Support Package (2 x 10 mins)",
+        "enrollment_id": 594719788,
+        "enrolled_at": "2024-12-12T00:15:29.935Z",
+        "percentage_completed": "0.0"
+      },
+      {
+        "course_id": 2418535,
+        "course_name": "Onboarding Health Stack Member (5 mins)",
+        "enrollment_id": 594719828,
+        "enrolled_at": "2024-12-12T00:15:38.514Z",
+        "percentage_completed": "0.0"
+      },
+      {
+        "course_id": 2211670,
+        "course_name": "Sleep Breathing Session (5 mins)",
+        "enrollment_id": 594719769,
+        "enrolled_at": "2024-12-12T00:15:24.177Z",
+        "percentage_completed": "0.0"
+      },
+      {
+        "course_id": 1746301,
+        "course_name": "Workstation Setup - (12 mins)",
+        "enrollment_id": 594719781,
+        "enrolled_at": "2024-12-12T00:15:27.907Z",
+        "percentage_completed": "0.0"
+      },
+      {
+        "course_id": 1066334,
+        "course_name": "General Yoga (5 x 30 mins)",
+        "enrollment_id": 594719797,
+        "enrolled_at": "2024-12-12T00:15:32.783Z",
+        "percentage_completed": "0.0"
+      },
+      {
+        "course_id": 783166,
+        "course_name": "Warm Ups for Work (8 mins)",
+        "enrollment_id": 594719810,
+        "enrolled_at": "2024-12-12T00:15:35.589Z",
+        "percentage_completed": "0.0"
+      },
+      {
+        "course_id": 1752686,
+        "course_name": "QUIT - Team Members (10 mins)",
+        "enrollment_id": 594719780,
+        "enrolled_at": "2024-12-12T00:15:27.240Z",
+        "percentage_completed": "0.0"
+      },
+      {
+        "course_id": 2317353,
+        "course_name": "Dry July (6 mins)",
+        "enrollment_id": 594719766,
+        "enrolled_at": "2024-12-12T00:15:22.601Z",
+        "percentage_completed": "0.0"
+      },
+      {
+        "course_id": 2207522,
+        "course_name": "Happy Minds Project",
+        "enrollment_id": 594719815,
+        "enrolled_at": "2024-12-12T00:15:36.924Z",
+        "percentage_completed": "0.0"
+      },
+      {
+        "course_id": 2297232,
+        "course_name": "Deskfit (6 mins)",
+        "enrollment_id": 594719767,
+        "enrolled_at": "2024-12-12T00:15:23.362Z",
+        "percentage_completed": "0.0"
+      }
+    ],
+    "total_enrollment_count": 22
+  }
+}
