@@ -306,11 +306,12 @@ const updateCourseProgress = async (progressData) => {
 //   }
 // };
 
+const userApiStatus = {}; // Object to track the pending API call status for each user
+
 const createEnrollment = async (progressData) => {
   try {
-    // Load user data
-    const userDataStore = loadUserData();
     const userEmail = progressData.user.email;
+    const userDataStore = loadUserData();
 
     // If user does not exist in the store, initialize their data
     if (!userDataStore[userEmail]) {
@@ -322,72 +323,44 @@ const createEnrollment = async (progressData) => {
     }
 
     const userRecord = userDataStore[userEmail];
-
-    // Ensure enrolled_courses is an array
     userRecord.enrolled_courses = userRecord.enrolled_courses || [];
-
-    // Ensure total_enrollment_count exists
     userRecord.total_enrollment_count = userRecord.total_enrollment_count || 0;
 
-    // Check if this specific course has already been enrolled
     const courseAlreadyEnrolled = userRecord.enrolled_courses.some(
       course => course.course_id === progressData.course.id
     );
 
     if (!courseAlreadyEnrolled) {
-      // Add new course to enrolled_courses
+      // Add the new course
       userRecord.enrolled_courses.push({
         course_id: progressData.course.id,
         course_name: progressData.course.name,
         enrollment_id: progressData.id,
-        enrolled_at: progressData.created_at,
-        percentage_completed: progressData.percentage_completed
       });
 
       // Increment total enrollment count
       userRecord.total_enrollment_count += 1;
+      saveUserData(userDataStore);
 
       console.log(`Enrolled in new course: ${progressData.course.name}`);
       console.log(`Total enrollment count: ${userRecord.total_enrollment_count}`);
 
-      // Save the updated user data FIRST
-      saveUserData(userDataStore);
+      // Check if API call is already pending for this user
+      if (!userApiStatus[userEmail]?.pending) {
+        // Initialize status if not present
+        if (!userApiStatus[userEmail]) userApiStatus[userEmail] = { queue: [], pending: false };
 
-      // Introduce a 2-minute delay using await with setTimeout
-      console.log("Waiting for potential additional data (2 minutes)...");
-      await new Promise(resolve => setTimeout(resolve, 120000)); // 120000 milliseconds = 2 minutes
+        // Add the enrollment to the queue
+        userApiStatus[userEmail].queue.push(progressData);
 
-      // Prepare payload for Ortto AFTER saving and delay
-      const payload = {
-        people: [
-          {
-            fields: {
-              "str::email": progressData.user.email,
-              "str::first": progressData.user.first_name,
-              "str::last": progressData.user.last_name,
-              "int:cm:enrolment-count": userRecord.total_enrollment_count,
-            },
-          },
-        ],
-        async: true,
-        merge_by: ["str::email"],
-        merge_strategy: 2,
-        find_strategy: 1,
-      };
+        // Set the flag to indicate an API call is pending
+        userApiStatus[userEmail].pending = true;
 
-      // Send to Ortto
-      const response = await axios.post(
-        `${ORTTO_API_URL}/person/merge`,
-        payload,
-        {
-          headers: {
-            "X-Api-Key": ORTTO_API_KEY,
-            "Content-Type": "application/json",
-          },
-        }
-      );
-
-      console.log("Enrollment Created and Tracked:", response.data);
+        // Set a timeout for 5 minutes to process the enrollments for this user
+        setTimeout(async () => {
+          await processEnrollments(userEmail);
+        }, 300000); // 5 minutes
+      }
     } else {
       console.log(`Course already enrolled: ${progressData.course.name}`);
     }
@@ -395,6 +368,53 @@ const createEnrollment = async (progressData) => {
     console.error("Error tracking course enrollment:", error.response?.data || error.message);
   }
 };
+
+const processEnrollments = async (userEmail) => {
+  try {
+    const userDataStore = loadUserData();
+    const userRecord = userDataStore[userEmail];
+
+    // Prepare the payload with enrollments for this user
+    const enrollmentsToProcess = userApiStatus[userEmail].queue;
+
+    // Construct the payload for Ortto
+    const payload = {
+      people: enrollmentsToProcess.map(progressData => ({
+        fields: {
+          "str::email": userEmail,
+          "str::first": progressData.user.first_name,
+          "str::last": progressData.user.last_name,
+          "int:cm:enrolment-count": userRecord.total_enrollment_count,
+        },
+      })),
+      async: true,
+      merge_by: ["str::email"],
+      merge_strategy: 2,
+      find_strategy: 1,
+    };
+
+    // Send the data to Ortto
+    const response = await axios.post(
+      `${ORTTO_API_URL}/person/merge`,
+      payload,
+      {
+        headers: {
+          "X-Api-Key": ORTTO_API_KEY,
+          "Content-Type": "application/json",
+        },
+      }
+    );
+
+    console.log("Enrollment Created and Tracked:", response.data);
+
+    // After processing, reset the status and clear the queue
+    userApiStatus[userEmail].pending = false;
+    userApiStatus[userEmail].queue = [];
+  } catch (error) {
+    console.error("Error processing enrollments:", error.response?.data || error.message);
+  }
+};
+
 
 // Unified handler for signup and signin
 const handleSignupOrSignin = async (userData) => {
@@ -499,10 +519,6 @@ const updateOrtto = async (userEmail, latestBundle, oldBundlesField) => {
     console.error("Error updating order created:", error.response?.data || error.message);
   }
 };
-
-
-
-
 
 const actionHandlers = {
   "user:signup": handleSignupOrSignin,
